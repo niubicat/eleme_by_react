@@ -1,0 +1,73 @@
+@import "../../common/styles/mixin.less"
+
+.star {
+	font-size: 0px;
+	.star-item {
+		display: inline-block;
+		background-repeat: no-repeat;
+		&.star-48 {
+			width: 20px;
+			height: 20px;
+			margin-right: 22px;
+			background-size: 20px 20px;
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&.on {
+				background: data-uri('./star48_on.png');
+			}
+			&.half {
+				background: data-uri('./star48_half.png')
+			}
+			&.off {
+				background: data-uri('./star48_off.png')
+			}
+		}
+
+		&.star-36 {
+			width: 15px;
+			height: 15px;
+			margin-right: 3px;
+			background-size: 15px 15px;
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&.on {
+				background: data-uri('./star36_on.png');
+			}
+			&.half {
+				background: data-uri('./star36_half.png');
+			}
+			&.off {
+				background: data-uri('star36_off.png');
+			}
+		}
+
+		&.star-24 {
+			width: 10px;
+			height: 10px;
+			margin-right: 3px;
+			background-size: 10px 10px;
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&.on {
+				background: data-uri('./star24_on.png');
+			}
+			&.half {
+				background: data-uri('./star24_half.png');
+			}
+			&.off {
+				background: data-uri('./star24_off.png')
+			}
+		}
+	}
+}
+
+
+
+
+
