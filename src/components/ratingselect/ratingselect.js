@@ -81,14 +81,14 @@ export default class Ratingselect extends Component {
 						{this.desc.positive}
 						<span className="count">{this.positives.length}</span>
 					</span>
-					<span className={`block negative`} @click="select(1, $event)"
-					:class="{'active': selectType === 1}">{{desc.negative}}
-						<span class="count">{{nagatives.length}}</span>
+					<span className={`block negative {selectType === 1 ? 'active' : ''}`} @click="select(1, $event)">
+						{this.desc.negative}
+						<span className="count">{this,nagatives.length}</span>
 					</span>
 				</div>
-				<div class="switch" @click="toggleContent( $event)" :class="{'on':onlyContent}">
-					<i class="iconfont icon-gou"></i>
-					<span class="text">只看有内容的评价</span>
+				<div className={`switch {'on' ? '' : 'on'}`} onClick={this.toggleContent(event)}>
+					<i className={`iconfont icon-gou`}></i>
+					<span className="text">只看有内容的评价</span>
 				</div>
 			</div>
 		)
