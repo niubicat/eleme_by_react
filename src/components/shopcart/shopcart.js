@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import IScroll from 'IScroll';
+import IScroll from 'iscroll';
 
-import cartControl from '../cartControl/cartControl';
+import CartControl from '../CartControl/CartControl';
 
-import * as styles from './shopCart.less';
+import * as styles from './shopcart.less';
 
 export default class ShopCart extends Component {
 	static PropTypes = {
 		selectFoods: PropTypes.array.isRequired,
-		deliveryPrice: PropTypes.nunber.isRequired,
+		deliveryPrice: PropTypes.number.isRequired,
 		minPrice: PropTypes.number.isRequired,
 		balls: PropTypes.array.isRequired,
 		drop: PropTypes.array.isRequired,
-		fold: PropTypes.boolean.isRequired
+		fold: PropTypes.bool.isRequired
 	}
 
 	static defaultProps = {
@@ -20,10 +20,10 @@ export default class ShopCart extends Component {
 		deliveryPrice: 0,
 		minPrice: 0,
 		balls: [
-			{show: false}, 
-			{show: false}, 
-			{show: false}, 
-			{show: false}, 
+			{show: false},
+			{show: false},
+			{show: false},
+			{show: false},
 			{show: false}
 		],
 		drop: [],
@@ -57,7 +57,7 @@ export default class ShopCart extends Component {
 			return `还差￥{diff}元起送`;
 		}
 		else {
-			return `去结算`；
+			return '去结算';
 		}
 	}
 
@@ -107,7 +107,7 @@ export default class ShopCart extends Component {
 
 	pay() {
 		if (this.totalPrice < this.minPrice) { return; }
-		window.alert('支付' + this.totalPrice + '元')；
+		window.alert('支付' + this.totalPrice + '元');
 	}
 
 	drop(el) {
@@ -125,7 +125,7 @@ export default class ShopCart extends Component {
 	beforeEnter() {
 		let count = this.balls.length;
 		while (count--) {
-			let ball = this.balls[coount];
+			let ball = this.balls[count];
 			if (ball.show) {
 				let rect = ball.el.getBoundingClientRect();
 				let x = rect.left - 32;
@@ -178,25 +178,28 @@ export default class ShopCart extends Component {
 							</div>
 							<div className="desc">另需配送费￥{this.deliveryPrice}元</div>
 						</div>
-						<div className="content-right" onClick={{event.preventDefault && this.pay()}}>
+						<div className="content-right"
+							onClick={this.pay()}>
 							<div className={`pay {'payClass' ? 'payClass' : ''}`}>
 								{this.payDesc()}
 							</div>
 						</div>
 					</div>
 					<div className="ball-container">
-						balls.map((item) => {
-							<div key={{balls.indexOf(item) + 1}}>
-								<div onClick={{this.beforeEnter() || this.enter() || this.afterEnter()}}>
-									if (item.show) {
-										<div className="ball">
-											<div className={`inner inner-hook`}>
+						{
+							this.balls.map((item, index) => {
+								<div key={index}>
+									<div onClick={this.beforeEnter()}>
+										if (item.show) {
+											<div className="ball">
+												<div className={`inner inner-hook`}>
+												</div>
 											</div>
-										</div>
-									}
+										}
+									</div>
 								</div>
-							</div>
-						});
+							})
+						}
 					</div>
 					<div name="fade">
 						<div className="shopcart-list" onClick={this.listShow()}>
@@ -221,14 +224,10 @@ export default class ShopCart extends Component {
 					</div>
 				</div>
 				<div name="fade">
-				<div className="list-mask" onClick={{this.listShow() || this.hideList()}}></div>
+				<div className="list-mask" onClick={this.listShow()}></div>
 				</div>
 			</div>
 		)
 	}
 
 }
-
-
-
-

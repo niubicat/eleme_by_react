@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import IScroll from 'iscroll'; // 引入iscroll
 
-import Split from '../split/split';
-import Ratingselect from '../ratingselect/ratingselect';
-import CartControl from '../cartControl/cartControl';
+import Split from '../Split/Split';
+import Ratingselect from '../RatingSelect/RatingSelect';
+import CartControl from '../CartControl/CartControl';
 
 import { formatDate } from '../../common/js/date';
 import * as styles from './food.less';
@@ -15,11 +15,11 @@ export default class Food extends Component {
 
 	static defaultProps ={
 		showFlag: false,
-		selectType: ALL,
+		selectType: 0,
 		onlyContent: true,
 		desc: {
-			all: '全部'，
-			positive: '推荐'，
+			all: '全部',
+			positive: '推荐',
 			negative: '吐槽'
 		}
 	}
@@ -78,7 +78,7 @@ export default class Food extends Component {
 			<div className="food">
 				<div className="fond-content">
 					<div className="image-header">
-						<img src={require("./food.image") alt="">
+						<img  alt="" />
 						<div className="back" onClick={this.hide()}>
 							<i className={`iconfont icon-weibiaoti6-copy`}></i>
 						</div>
@@ -108,10 +108,10 @@ export default class Food extends Component {
 					<Split />
 					<div className="rating">
 						<h1 className="title">商品评价</h1>
-						<Ratingselect 
-							increment={this.incrementTotal()} 
-							select-type={this.selectType} 
-							only-content={this.onlyContent} 
+						<Ratingselect
+							increment={this.incrementTotal()}
+							select-type={this.selectType}
+							only-content={this.onlyContent}
 							desc={this.desc}
 							ratings={this.food.ratings}
 						/>
@@ -120,13 +120,13 @@ export default class Food extends Component {
 							<li className={`rating-item border-1px`}>
 								<div className="user">
 									<span className="name">{this.rating.username}</span>
-									<img className="avatar" style={{width="12" height="12"}} src={require("./avatar.png")} alt="">
+									<img className="avatar" style={{width: 12, height: 12}}  alt="" />
 								</div>
 								<div className="time">{this.rating.rateTime || this.formatDate()}</div>
 									<p className="text">
 										<i className={
-											`iconfont ${{this.rating.rateType === 0 ? 'icon-damuzhi' : ''}}
-											${{rating.rateType === 1 ? 'icon-down' : ''}}/>
+											`iconfont {this.rating.rateType == 0 ? 'icon-damuzhi' : ''}
+											{rating.rateType == 1 ? 'icon-down' : ''}`} >
 										</i>
 										{this.rating.text}
 									</p>
@@ -140,7 +140,3 @@ export default class Food extends Component {
 		)
 	}
 }
-
-
-
-

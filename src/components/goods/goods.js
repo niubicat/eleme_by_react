@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import IScroll, { scrollToElement } from 'iscroll';
 
-import ShopCart from '../shopCart/shopCart';
-import CartControl from '../cartControl/cartControl';
-import Food from '../food/food';
+import ShopCart from '../ShopCart/ShopCart';
+import CartControl from '../CartControl/CartControl';
+import Food from '../Food/Food';
 
-import data from './common/json/data.json';
+import data from '../../common/json/data.json';
 
-export default class Good extends Component {
+export default class Goods extends Component {
 	static PropTypes = {
 		seller: PropTypes.object.isRequired
 	}
@@ -19,8 +19,8 @@ export default class Good extends Component {
 		scrolly: 0,
 		selectedFood: {},
 		classMap: [],
-		menuScroll,
-		foodScroll
+		menuScroll: {},
+		foodScroll: {}
 	}
 
 	constructor(props) {
@@ -113,11 +113,11 @@ export default class Good extends Component {
 					<ul>
 						this.goods.map((item) => {
 							<li className={
-								`menu-item border-1px  ${{currentIndex === index ? 'current' : ''}}`
+								`menu-item border-1px {currentIndex == index ? 'current' : ''}`}
 								onClick={this.selectMenu(index, event)}>
 								<span className="text">
-									<span className={`icon ${{item.type > 0 ? 'show' : ''}} ${{this.classMap[item.type]}}`></span>
-									{{item.name}}
+									<span className={`icon {item.type > 0 ? 'show' : ''} {this.classMap[item.type]}`}></span>
+									{item.name}
 								</span>
 							</li>
 						})
@@ -125,14 +125,14 @@ export default class Good extends Component {
 				</div>
 				<div className="foods-wrapper" ref="foodWrapper">
 					<ul>
-						goods.map((item) => {
-							<li key={{goods.indexOf(item) + 1}} className={`food-list food-list-hook`}>
-								<h1 className="title">{this.goods[item]name}</h1>
+						this.goods.map((item, index) => {
+							<li key={index} className={`food-list food-list-hook`}>
+								<h1 className="title">{item.name}</h1>
 								<ul>
 									if (food in item.foods) {
 										<li className="food-item" onClick={this.selectFood(food, event)}>
 											<div className="icon">
-												<img src={require("./food.icon")} alt="" style={{width="57"}}>
+												<img  alt="" style={{width: "57px"}} />
 											</div>
 											<div className="content">
 												<h2 className="name">{this.food[item].name}</h2>
@@ -154,14 +154,14 @@ export default class Good extends Component {
 								</ul>
 							</li>
 						})
-						
+
 					</ul>
 				</div>
 				<div>
-					<ShopCart 
-						select-foods={this.selectFoods()} 
+					<ShopCart
+						select-foods={this.selectFoods()}
 						delivery-price={this.seller.deliveryPrice}
-						min-price={this.seller.minPrice} ref={`shopCart`} 
+						min-price={this.seller.minPrice} ref={`shopCart`}
 					/>
 					<Food food={this.selectedFood()} ref={`food`}/>
 				</div>
@@ -169,8 +169,3 @@ export default class Good extends Component {
 		)
 	}
 }
-
-
-
-
-

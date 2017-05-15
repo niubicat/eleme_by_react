@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 
-import * as styles from 'cartControl.less';
+import * as styles from './cartcontrol.less';
 
 export default class CartControl extends Component {
 	static PropTypes = {
-		food
+		food: PropTypes.object.isRequired
 	}
 
 	static defaultProps = {
-		food
+		food: {
+			count: 0
+		}
 	}
 
 	constructor(props) {
@@ -18,7 +20,7 @@ export default class CartControl extends Component {
 
 	addChart(event) {
 		if(!event) {
-			return; 
+			return;
 		}
 
 		if (!this.food.count) {
@@ -44,18 +46,15 @@ export default class CartControl extends Component {
 	render() {
 		return (
 			<div className="cartControl">
-				<div className="cart-decrease"  onClick={{event.preventDefault() && this.decreaseCart(event)}}>
+				<div className="cart-decrease"  onClick={this.decreaseCart(event)}>
 					<span className={`inner iconfont icon-jian`}></span>
 				</div>
 				<span className="cart-count">
 					{this.food.count}
 				</span>
-				<span className={`iconfont icon-jia cart-add`} onClick={{event.preventDefault() && this.addCart(event)}}></span>
+				<span className={`iconfont icon-jia cart-add`} onClick={this.addCart(event)}></span>
 			</div>
 		)
 	}
 
 }
-
-
-

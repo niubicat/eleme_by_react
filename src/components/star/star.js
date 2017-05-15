@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import * as styles from 'star.less';
+import * as styles from './star.less';
 
 export default class Star extends Component {
 	static PropTypes = {
@@ -20,7 +20,7 @@ export default class Star extends Component {
 		CLS_OFF: 'off'
 	}
 
-	constuctor(props){
+	constructor(props){
 		super(props);
 		this.state = {
 		}

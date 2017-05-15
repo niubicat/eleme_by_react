@@ -2,24 +2,24 @@ import React, { Component, PropTypes } from 'react';
 
 import * as styles from './ratingselect.less';
 
-export default class Ratingselect extends Component {
+export default class RatingSelect extends Component {
 	static PropTypes = {
-		ratings: PropTypes.array.isRequired，
-		selectType: ProTypes.number.isRequired，
-		onlyContent: ProTypes.boolean.isRequired，
-		desc: ProTypes.object.isRequired
+		ratings: PropTypes.array.isRequired,
+		selectType: PropTypes.number.isRequired,
+		onlyContent: PropTypes.bool.isRequired,
+		desc: PropTypes.object.isRequired
 	}
 
 	static defaultProps ={
 		POSITIVE: 0,
 		NEGATIVE: 1,
 		ALL: 0,
-		ratings: [].
-		selectType: ALL,
+		ratings: [],
+		selectType: 0,
 		onlyContent: false,
 		desc: {
-			all: '全部'，
-			positive: '满意'，
+			all: '全部',
+			positive: '满意',
 			negative: '吐槽'
 		}
 	}
@@ -30,7 +30,7 @@ export default class Ratingselect extends Component {
 	}
 
 	positives() {
-		return this.ratings.filter((rating) = > {
+		return this.ratings.filter((rating) => {
 			return rating.rateType === POSITIVE;
 		});
 	}
@@ -75,15 +75,13 @@ export default class Ratingselect extends Component {
 				<div className={`rating-type border-1px`}>
 					<span className={`block positive {selectType === 2 ? 'active' : ''}`} onClick={this.select(2, event)}>
 						{this.desc.all}
-						<span className="count">{this.ratings.length}</span> 
+						<span className="count">{this.ratings.length}</span>
 					</span>
-					<span className={`block positive {selectType === 0 ? 'active' : ''}`} onClick={this.select(0, event)}
-						{this.desc.positive}
-						<span className="count">{this.positives.length}</span>
+					<span className={`block positive {selectType === 0 ? 'active' : ''}`} onClick={this.select(0, event)}>
 					</span>
-					<span className={`block negative {selectType === 1 ? 'active' : ''}`} @click="select(1, $event)">
+					<span className={`block negative {selectType === 1 ? 'active' : ''}`} onClick={this.select(1, event)}>
 						{this.desc.negative}
-						<span className="count">{this,nagatives.length}</span>
+						<span className="count"></span>
 					</span>
 				</div>
 				<div className={`switch {'on' ? '' : 'on'}`} onClick={this.toggleContent(event)}>
@@ -95,6 +93,3 @@ export default class Ratingselect extends Component {
 	}
 
 }
-
-
-

@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import IScroll from 'iscroll'; // 引入iscroll
 
-import Star from '../star/star';
-import Split from '../split/split';
-import { savaToLocal, loadFromlLocal } from '../../common/js/store';
-import * as styles from 'seller.less';
+import Star from '../Star/Star';
+import Split from '../Split/Split';
+import { savaToLocal, loadFromlLocal } from '../../store/store';
+import * as styles from './seller.less';
 
 export default class Seller extends Component {
 	static PropTypes = {
@@ -12,11 +12,11 @@ export default class Seller extends Component {
 	}
 
 	static defaultProps = {
-		seller，
-		favorite,
-		picScroll,
-		scroll,
-		classMap
+		seller: {},
+		favorite: '',
+		picScroll: {},
+		scroll: {},
+		classMap: []
 	}
 
 	constructor(props) {
@@ -28,7 +28,7 @@ export default class Seller extends Component {
 	}
 
 	favoriteText() {
-		return this.favvorite ? '已收藏' ：'收藏'；
+		return this.favorite = this.favorite ? '已收藏' : '收藏';
 	}
 
 	picScroll() {
@@ -74,7 +74,7 @@ export default class Seller extends Component {
 						<div className={`desc border-1px`}>
 							<Star size={"36"} score={this.props.seller.score} />
 							<span className="text">({this.props.seller.ratingCount()})</span>
-							<span className="text">月售{{seller.sellCount}}单</span>
+							<span className="text">月售{this.props.seller.sellCount}单</span>
 						</div>
 						<ul className="remark">
 							<li className="block">
@@ -97,20 +97,20 @@ export default class Seller extends Component {
 							</li>
 						</ul>
 						<div className="favorite" onClick={this.toggleFavorite(event)}>
-							<i className={`iconfont icon-aixin ${{'active':favorite}}></i>
+							<i className={`iconfont icon-aixin {'active':favorite}`}></i>
 							<span>{this.favoriteText()}</span>
 						</div>
 					</div>
 					<Split />
 					<div className="bulletin">
 						<h1 className="title">公告与活动</h1>
-						<div className={`content-wrapper border-1px`}>
-							<p className="content">{this.props.seller.bulletin}}</p>
+						<div >
+							<p className="content">{this.props.seller.bulletin}</p>
 						</div>
 						<ul className="supports">
 							<li className="support-item">
-								<span className="icon></span>
-								<span className="text">{this.props.seller.supports.description}</span>
+								<span className="icon"></span>
+								<span className="text"></span>
 							</li>
 						</ul>
 					</div>
@@ -120,14 +120,14 @@ export default class Seller extends Component {
 						<div className="pic-wrapper" ref="picWrapper">
 							<ul className="pic-list" ref="picList">
 								<li className="pic-item">
-									<img src={require("./pic.png")} style={{width="120" height="120"}}>
+									<img style={{width: "120px", height: "120px"}} />
 								</li>
 							</ul>
 						</div>
 					</div>
 					<Split />
 					<div className="info">
-						<div className={`title  border-1px`}>商家信息</div>
+						<div >商家信息</div>
 						<ul>
 							<li className="info-item">{this.props.info}</li>
 						</ul>
@@ -137,10 +137,3 @@ export default class Seller extends Component {
 		)
 	}
 }
-
-
-
-
-
-
-
