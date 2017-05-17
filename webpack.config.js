@@ -41,13 +41,13 @@ module.exports = {
         //     minChunks: ({ resource }) => (
         //         resource &&
         //         resource.indexOf('node_modules') >= 0 &&
-        //         resource.match(/\.js$/)
+        //         resource.match(/\.utils$/)
         //     )
         // }),
 
         // new webpack.optimize.CommonsChunkPlugin({
         //     names: ['vendor'],
-        //     filename: 'vendor.js'
+        //     filename: 'vendor.utils'
         // }),
 
         new HtmlWebpackPlugin({

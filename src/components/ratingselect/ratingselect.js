@@ -81,11 +81,11 @@ export default class RatingSelect extends Component {
 					</span>
 					<span className={`block negative {selectType === 1 ? 'active' : ''}`} onClick={this.select(1, event)}>
 						{this.desc.negative}
-						<span className="count"></span>
+						<span className="count">11</span>
 					</span>
 				</div>
 				<div className={`switch {'on' ? '' : 'on'}`} onClick={this.toggleContent(event)}>
-					<i className={`iconfont icon-gou`}></i>
+					<i className={`iconfont icon-gou`}>11</i>
 					<span className="text">只看有内容的评价</span>
 				</div>
 			</div>

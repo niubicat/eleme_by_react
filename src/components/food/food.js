@@ -2,14 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import IScroll from 'iscroll'; // 引入iscroll
 
 import Split from '../Split/Split';
-import Ratingselect from '../RatingSelect/RatingSelect';
+import RatingSelect from '../RatingSelect/RatingSelect';
 import CartControl from '../CartControl/CartControl';
 
-import { formatDate } from '../../common/js/date';
-import * as styles from './food.less';
+import { formatDate } from '../../common/utils/date';
+
+import * as  styles from './food.less';
 
 export default class Food extends Component {
-	static ProoTypes = {
+	static PropTypes = {
 		food: PropTypes.object.isRequired
 	}
 
@@ -80,7 +81,7 @@ export default class Food extends Component {
 					<div className="image-header">
 						<img  alt="" />
 						<div className="back" onClick={this.hide()}>
-							<i className={`iconfont icon-weibiaoti6-copy`}></i>
+							<i className={`iconfont icon-weibiaoti6-copy`}>1</i>
 						</div>
 					</div>
 					<div className="content">

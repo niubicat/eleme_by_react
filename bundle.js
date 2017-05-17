@@ -11,7 +11,7 @@ import React, { Component } from 'react';
 
 class Bundle extends Component {
 	state = {
-	// short for "module" but that's a keyword in js, so "mod"
+	// short for "module" but that's a keyword in utils, so "mod"
 	mod: null
 	}
 

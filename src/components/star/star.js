@@ -57,7 +57,7 @@ export default class Star extends Component {
 
 		spanDiv = result.map(function(item) {
 			return (
-				<span className={item}></span>
+				<span className={item}>11</span>
 			)
 		});
 

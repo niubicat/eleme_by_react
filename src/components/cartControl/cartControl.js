@@ -47,12 +47,12 @@ export default class CartControl extends Component {
 		return (
 			<div className="cartControl">
 				<div className="cart-decrease"  onClick={this.decreaseCart(event)}>
-					<span className={`inner iconfont icon-jian`}></span>
+					<span className={`inner iconfont icon-jian`}>11</span>
 				</div>
 				<span className="cart-count">
 					{this.food.count}
 				</span>
-				<span className={`iconfont icon-jia cart-add`} onClick={this.addCart(event)}></span>
+				<span className={`iconfont icon-jia cart-add`} onClick={this.addCart(event)}>11</span>
 			</div>
 		)
 	}

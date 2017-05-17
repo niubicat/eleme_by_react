@@ -5,7 +5,7 @@ import star from '../Star/Star';
 import split from '../Split/Split';
 import ratingselect from '../RatingSelect/RatingSelect';
 
-import { formatDate } from '../../common/js/date';
+import { formatDate } from '../../common/utils/date';
 import data from '../../common/json/data.json';
 
 import * as styles from './ratings.less';
@@ -116,7 +116,7 @@ export default class Ratings extends Component {
 										</div>
 										<p className="text">{this.rating.text}</p>
 										<div className="recommend">
-											<i className={`iconfont icon-damuzhi`}></i>
+											<i className={`iconfont icon-damuzhi`}>11</i>
 											{
 												this.ratings.recommend.map((i, index) => { return (
 													<span  key={index} className="item">

@@ -1,125 +1,137 @@
 import React, { Component, PropTypes } from 'react';
-import Star from '../Star/Star';
+import classNames from 'classnames';
+
+// import Star from '../Star/Star';
 import * as styles from './header.less';
+
 
 export default class Header extends Component {
 	static PropTypes = {
 		seller: PropTypes.object.isRequired
 	}
 
-	// static defaultProps = {
-     //    seller: {
-     //    	name: {},
-     //        description: {}
-	// 	}
-	// }
-
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			display: 'none',
 			detailShow: false,
 			size: 48
 		}
 
-		this.showDetail = this.showDetail.bind(this);
-        this.hideDetail = this.hideDetail.bind(this);
-        this.sellerSupports = this.sellerSupports.bind(this);
+		// this.showDetail = this.showDetail.bind(this);
+        // this.hideDetail = this.hideDetail.bind(this);
 
+    }ßß
+
+    ComponentWillMout() {
+        const { seller, getSellerData } = this.props;
     }
 
-	// componentWillReceiveProps(nextProps) {
-	// 	if(nextProps.seller !== this.props.seller) {
-	// 		this.setState({
-	// 			detailShow: !detailShow
-	// 		})
-	// 	}
-	// }
-
 	showDetail() {
-		this.detailShow = true;
+        this.setState({
+            detailShow: true,
+            display: 'block'
+        })
 	}
 
 	hideDetail() {
-		this.detailShow = false;
-	}
-
-	sellerSupports() {
-		const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-		let ellerSupports = classMap.map(function(item) {
-			return (
-				<div>
-					<span className={`icon ${item}`}>11</span>
-					<span className="text">{this.props.seller.description}</span>
-				</div>
-			)
+		this.setState({
+            detailShow: false,
+        	display: 'none'
 		})
 	}
 
+
 	render() {
+        const classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special'];
+		const addClass = classNames(classMap[0]);
+		let fadeClass = classNames({
+			'fade-enter-active': this.state.detailShow,
+            'fade-leave-active': !this.state.detailShow
+		});
 
 		return (
+			<div>
+			<div>
+				<button onClick={this.props.getSellerData}>1111</button>
+				<span>{this.props.seller.seller.name}</span>
+			</div>
+
 			<div className="header">
 				<div className="content-wrapper">
 					<div className="avatar">
-						<img style={{width: 64,height: 64}} />
+						<img style={{width: 64, height: 64}} src={this.props.seller.seller.avatar}/>
 					</div>
 					<div className="content">
 						<div className="title">
-							<span className="brand">11</span>
-							<span className="name">{this.props.seller.name}</span>
+							<span className="brand"></span>
+							<span className="name">{this.props.seller.seller.name}</span>
 						</div>
 						<div className="description">
-							{this.props.seller.description}/{this.props.seller.deliveryTime}分钟送达
+							{this.props.seller.seller.description}/{this.props.seller.seller.deliveryTime}分钟送达
 						</div>
-						{this.sellerSupports()}
+						<div className="support">
+							<span className={`icon ${addClass}`}></span>
+							<span className="text">{this.props.seller.seller.supports[0].description}</span>
+						</div>
 					</div>
-					<div className="supports-count" onClick={this.showDetail()}>
-						<span className="count">{this.props.supports.length}</span>
-						<i className={`icon iconfont icon-zuoyoujiantou`}>11</i>
+					<div className="supports-count" onClick={::this.showDetail}>
+						<span className="count">{this.props.seller.seller.supports.length}个</span>
+						<i className={`icon iconfont icon-zuoyoujiantou`}></i>
 					</div>
 				</div>
-				<div className="bulletin-wrapper" onClick={this.showDetail()}>
-					<span className="bulletin-title">11</span>
-					<span className="bulletin-text">{this.props.seller.bulletin}</span>
-					<i className={`icon iconfont icon-zuoyoujiantou`}>11</i>
+				<div className="bulletin-wrapper" onClick={::this.showDetail}>
+					<span className="bulletin-title"></span>
+					<span className="bulletin-text">{this.props.seller.seller.bulletin}</span>
+					<i className={`icon iconfont icon-zuoyoujiantou`}></i>
 				</div>
 				<div className="background">
-					<img  alt="" class="" style={{width: "100%", height: "100%"}} />
+					<img  src={this.props.seller.seller.avatar} alt="" class=""
+						  style={{width: "100%", height: "100%"}} />
 				</div>
-				<div className="detail" onClick={this.hideDetail()}>
+				<div className={`detail ${fadeClass}`} onClick={::this.hideDetail} style={{display: this.state.display}}>
 					<div className={`detail-wrapper clearFix`}>
 						<div className="detail-main">
-							<h1 className="name">{this.props.seller.name}</h1>
-							<div className="star-wrapper">
-							<Star size={this.state.size} score={this.props.seller.score} />
-						</div>
-						<div className="title">
-							<div className="line"></div>
-							<div className="text">优惠信息</div>
-							<div className="line"></div>
-						</div>
-						<ul className="supports">
-							<li className="support-item">
-							<span className="icon">11</span>
-							{this.sellerSupports()}
-							<span className="text">{this.props.seller.description}</span>
-							</li>
-						</ul>
-						<div className="title">
-							<div className="line"></div>
-							<div className="text">商家公告</div>
-							<div className="line"></div>
-						</div>
-						<div className="bulletin">
-							<p className="content">{this.props.seller.bulletin}</p>
+							<h1 className="name">{this.props.seller.seller.name}</h1>
+
+							<div className="title">
+								<div className="line"></div>
+								<div className="text">优惠信息</div>
+								<div className="line"></div>
+							</div>
+							<ul className="supports">
+								<li className="support-item">
+									{
+                                        classMap.map((item, index) => {
+                                        	return (
+                                        		<div>
+													<span key={index} className={`icon ${item}`}></span>
+													<span className="text">
+														{this.props.seller.seller.supports[index].description}
+													</span>
+												</div>
+												)
+										})
+									}
+								</li>
+							</ul>
+							<div className="title">
+								<div className="line"></div>
+								<div className="text">商家公告</div>
+								<div className="line"></div>
+							</div>
+							<div className="bulletin">
+								<p className="content">{this.props.seller.seller.bulletin}</p>
+							</div>
 						</div>
 					</div>
-					</div>
-					<div className="detail-close" onClick={this.hideDetail()}>
-						<i className={`iconfont icon-cha`}>11</i>
+					<div className="detail-close" onClick={::this.hideDetail}>
+						<i className={`iconfont icon-cha`}>111</i>
 					</div>
 				</div>
+			</div>
+
 			</div>
 		)
 	}
