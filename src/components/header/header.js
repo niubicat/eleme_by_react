@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-// import Star from '../Star/Star';
 import * as styles from './header.less';
+
+// import Star from '../Star/Star';
+
+// {this.props.seller.seller.supports.map((item, index)=><span key={index}>{item.description}</span>)}
+// <span>{this.props.seller.seller.supports[0].description}</span>
+
 
 
 export default class Header extends Component {
@@ -19,13 +24,18 @@ export default class Header extends Component {
 			size: 48
 		}
 
-		// this.showDetail = this.showDetail.bind(this);
-        // this.hideDetail = this.hideDetail.bind(this);
+		this.fetchItems = this.fetchItems.bind(this);
+    }
 
-    }ßß
+    componentWillMount() {
+        this.fetchItems(true);
+    }
+     
 
-    ComponentWillMout() {
-        const { seller, getSellerData } = this.props;
+    fetchItems(isRefresh) {
+        if (isRefresh) {
+            this.props.getSellerData();
+        }
     }
 
 	showDetail() {
@@ -42,7 +52,6 @@ export default class Header extends Component {
 		})
 	}
 
-
 	render() {
         const classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special'];
 		const addClass = classNames(classMap[0]);
@@ -50,13 +59,10 @@ export default class Header extends Component {
 			'fade-enter-active': this.state.detailShow,
             'fade-leave-active': !this.state.detailShow
 		});
-
+        console.log(this.props.seller.seller.supports);
 		return (
 			<div>
-			<div>
-				<button onClick={this.props.getSellerData}>1111</button>
-				<span>{this.props.seller.seller.name}</span>
-			</div>
+		
 
 			<div className="header">
 				<div className="content-wrapper">
@@ -87,8 +93,7 @@ export default class Header extends Component {
 					<i className={`icon iconfont icon-zuoyoujiantou`}></i>
 				</div>
 				<div className="background">
-					<img  src={this.props.seller.seller.avatar} alt="" class=""
-						  style={{width: "100%", height: "100%"}} />
+
 				</div>
 				<div className={`detail ${fadeClass}`} onClick={::this.hideDetail} style={{display: this.state.display}}>
 					<div className={`detail-wrapper clearFix`}>

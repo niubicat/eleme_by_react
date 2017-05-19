@@ -17,11 +17,15 @@ module.exports = {
             {
                 test: /\.coffee$/,
                 loader: 'coffee-loader'
-            }, 
+            },
+            {
+                test: /\.css$/,
+                loader: ["style-loader", "css-loader"]
+            },
             {
                 test: /\.less$/,
                 loader: ["style-loader", "css-loader", "less-loader"]
-            }, 
+            },
             {
                 test: /\.js?$/,
                 exclude: /(node_modules|bower_components)/,

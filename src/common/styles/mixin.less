@@ -1,7 +1,4 @@
-@color: #fff;
-@url: '../../components/goods/';
-
-.border-1px {
+.border-1px(@color) {
 	position : relative;
 	&:after {
 		display: block;
@@ -14,20 +11,21 @@
 	}
 }
 
-.border-none {
+
+.border-none() {
 	&:after {
 		display: none;
 	}
 }
   
     
-// .bg-image{
-// 	background-image: url('@url + "@2x.png"');  
+.bg-image(@img) {
+	background-image: url('@{img}@2x.png');
 
-// 	@media screen and (min-device-pixel-ratio) {
-// 		background-image: url('@url + "@3x.png"');
-// 	} 
-// }
+	@media screen and (min-device-pixel-ratio) {
+	background-image: url('@{img}@3x.png');
+	}
+}
 
 
   

@@ -1,4 +1,4 @@
-@import "../../common/stylus/mixin.less";
+@import "../../common/styles/mixin.less";
 
 .good {
 	display: flex;
@@ -17,18 +17,18 @@
 			display: table;
 			width: 56px;
 			height: 54px;
-			line-height: 174px;
+			line-height: 14px;
 			padding: 0 12px;
 
 			&.current {
 				position: relative;
 				z-index: 10;
 				margin-top: -1px;
-				background: #fff;
+				background: #000;
 				font-weight: 700;
 
 				.text {
-					border: none;
+					.border-none();
 				}
 			}
 
@@ -42,19 +42,19 @@
 				background-repeat: no-repeat;
 
 				&.decrease {
-					background-image: data-uri('./decrease_3.png');
+					.bg-image('../../components/Goods/decrease_3');
 				}
 				&.discount {
-					background-image: data-uri('./discount_3.png');
+					.bg-image('../../components/Goods/discount_3');
 				}
 				&.guarantee {
-					background-image: data-uri('./guarantee_3.png');
+					.bg-image('../../components/Goods/guarantee_3');
 				}
 				&.invoice {
-					background-image: data-uri('./invoice_3.png');
+					.bg-image('../../components/Goods/invoice_3');
 				}
 				&.special {
-					background-image: data-uri('./special_3.png');
+					.bg-image('../../components/Goods/special_3');
 				}
 			}
 
@@ -62,7 +62,7 @@
 				display: table-cell;
 				width: 56px;
 				vertical-align: middle;
-				border-1px: rgba(7, 17, 27, 0.1);
+				.border-1px(rgba(7, 17, 27, 0.1));
 				font-size: 12px;
 			}
 		}
@@ -86,11 +86,11 @@
 				display: flex;
 				margin-top: 18px;
 				padding-bottom: 18px;
-				border-1px: rgba(7, 17, 27, 0.1)
+				.border-1px(rgba(7, 17, 27, 0.1));
 
 				&:last-child {
-					border: none;
-					margin-bottom: 0px;
+					.border-none();
+					margin-bottom: 0;
 				}
 				.icon {
 					flex: 0 0 57px;
@@ -100,7 +100,7 @@
 					flex: 1;
 
 					.name {
-						margin-top: 2px 0 8px 0;
+						margin: 2px 0 8px 0;
 						font-size: 14px;
 						line-height: 14px;
 						height: 14px;
@@ -123,7 +123,7 @@
 						}
 					}
 					.price {
-						font-weight: 700px;
+						font-weight: 700;
 						line-height: 24px;
 						.now {
 							margin-right: 8px;
