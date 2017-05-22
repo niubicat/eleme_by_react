@@ -1,3 +1,11 @@
 export function sellerUrl() {
-    return `../../data.json`;
+    return `../../sellerdata.json`;
+}
+
+export function goodsUrl() {
+	return `../../goodsdata.json`;
+}
+
+export function ratingsUrl() {
+	return `../../ratingsdata.json`;
 }

@@ -3,6 +3,7 @@ import ReactDOM, { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import IScroll, { scrollToElement } from 'iscroll/build/iscroll-probe'; // 只有这个库支持onScroll,从而支持bounce阶段的事件捕捉
 
+import { downDone } from '../../control/Goods';
 
 import * as styles from './goods.less';
 
@@ -12,41 +13,66 @@ import * as styles from './goods.less';
 
 export default class Goods extends Component {
 	static PropTypes = {
-		seller: PropTypes.object.isRequired
+		goods: PropTypes.array.isRequired
 
     }
 
-	static defaultProps = {
-		listHeight: [],
-		scrolly: 0,
-		currentIndex: 0,
-		classMap: [],
-		
-	}
+    static defaultProps = {
+        listHeight: [],
+        scrolly: 0,
+        currentIndex: 0,
+        classMap: [],
+        haha:1221,
+        goods:[
+            {name:12,
+            foods:[12]
+            },
+            {name:12,
+            foods:[32]
+            },
+            {name:12,
+            foods:[43]
+            }
+        ]
+        
+
+           
+    }
+
 
 	constructor(props) {
 		super(props);
-
+        console.log(this.props.goods);
+        console.log(this.props.goods[0].foods)
 		this.state = {
             pullDownStatus: 0,
-            pullUpStatus: 0
+            pullUpStatus: 0,
+            down: ''
         }
-
+        
         this.listHeight = [];
 
         this.itemsChanged = false;
         
         this.calculateHeight = this.calculateHeight.bind(this);
         this.currentIndex = this.currentIndex.bind(this);
+        this.fetchItems = this.fetchItems.bind(this);
     }
 
 
+    
 
-    // componentWillMount(data) {
-    //     this.goods = this.data.goods;
-    //     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-    // }
+    fetchItems(isRefresh) {
+        if (isRefresh) {
+            this.props.getGoodsData();
+        }
+    }
 
+componentWillMount() {
+    this.fetchItems(true);
+}
+
+    
     
     // selectFoods() {
     //     let foods = [];
@@ -63,7 +89,7 @@ export default class Goods extends Component {
 // this.scrolly = Math.abs(Math.round(pos.y)); // 取最近的整数，再取绝对值
 
     componentDidMount() {
-
+            console.log(this.props.goods)
             const options = {
                 // 默认iscroll会拦截元素的默认事件处理函数，我们需要响应onClick，因此要配置
                 preventDefault: false,
@@ -78,26 +104,25 @@ export default class Goods extends Component {
                 // 展示滚动条
                 scrollbars: false,
             };
-            console.log(this.refs.menuWrapper)
-            
+
+            this.menuList = this.refs.menuWrapper.getElementsByClassName('menu-item');
+            this.foodList = this.refs.foodWrapper.getElementsByClassName('food-list-hook');
+
+
             this.menuiScrollInstance = new IScroll(this.refs.menuWrapper, options);
             this.menuiScrollInstance.on('scroll');
 
 
-            this.menuList = this.refs.menuWrapper.getElementsByClassName('menu-item');
-   
-            this.foodList = this.refs.foodWrapper.getElementsByClassName('food-list-hook');
-   
-
-            this.calculateHeight();
-            console.log(this.listHeight)
 
             this.foodiScrollInstance = new IScroll(this.refs.foodWrapper, options);
             this.foodiScrollInstance.on('scroll', () => {
+                this.calculateHeight();  // 计算出foolmenu scroll listHeight
                 this.scrolly = Math.abs(Math.round(this.foodiScrollInstance.y));
                 this.currIndex = this.currentIndex();
                 console.log(this.currIndex)
             });
+
+            
     }
 
 
@@ -184,76 +209,99 @@ export default class Goods extends Component {
 
 
 
+  
+                        
+                        
+                      
+                                    
+                               
+
+
+
+componentWillReceiveProps() {
+    this.setState({
+        down: downDone
+    })
+                       
+}
+
+ 
 
     render(){
+       console.log(this.props.goods);
+        let res = '';
+        if (this.props.goods !== 'underfined') {
+            res = this.props.goods.map((item, index) => {
+                    return (
+                        <li key={index} 
+                            className={classNames({'menu-item': true, 'border-1px': true, 
+                                'current': this.currIndex == {index} ? true : false})
+                            } 
+                            onClick={this.selectMenu.bind(this, index)}>
+                            {item.name}
+                        </li>
+                    )
+                });
+        }
+
+        console.log(this.props.goods[1].foods)
+        let foodres = '';
+        if (this.props.goods !== 'underfined') {
+            foodres = this.props.goods.map((item, index) => (
+                <li key={index} className={`food-list food-list-hook`} >
+                    <h1 className="title">{item.name}</h1>
+                    <ul>
+                        {
+                            item.foods.map(
+                                (food, i) => {
+                                    return (
+                                        <li key={i} className="food-item"
+                                            >
+                                            <div className="icon">
+                                                <img alt="" src={require("../../image/foods/icon2.jpg")}style={{width: "57"}}/>
+                                            </div>
+                                            <div className="content">
+                                                <h2 className="name">{food.name}</h2>
+                                                <p className="desc">{food.description}</p>
+                                                <div className="extra">
+                                                    <span className="count">月售{food.sellCount}}</span>
+                                                    <span className="count">好评{food.rating}</span>
+                                                </div>
+                                                <div className="price">
+                                                    <span className="now">￥{food.price}</span>
+                                                    <span className="old">￥{food.oldPrice}</span>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                   )
+                               }
+                            )
+                        }
+                    </ul>
+                </li>
+            ))
+        }
+
 
         return (
             
-			<div className="good">
-               
-				<div className="menu-wrapper" ref="menuWrapper">
-					<ul>
-						{
-							this.props.seller.goods.map((item, index) => {
-								return (
-									<li key={index} 
-                                        className={classNames({'menu-item': true, 'border-1px': true, 
-                                            'current': this.currIndex == index ? true : false})
-                                        } 
-                                        onClick={this.selectMenu.bind(this, index)}>
-										{item.name}
-									</li>
-
-									)
-							})
-						}
-					</ul>
-				</div>
-
-
-
-						<div className="foods-wrapper" ref="foodWrapper">
-							<ul>
-								{
-                                    this.props.seller.goods.map((item, index) => (
-									<li key={index} className={`food-list food-list-hook`} >
-
-										<h1 className="title">{item.name}</h1>
-										<ul>
-											{
-												item.foods.map(
-													(food, i) => (
-														<div key={i}>
-															<li className="food-item"
-																>
-																<div className="icon">
-																	<img alt="" style={{width: "57px"}}/>
-																</div>
-																<div className="content">
-																	<h2 className="name">{food.name}</h2>
-																	<p className="desc">{food.description}</p>
-																	<div className="extra">
-																		<span className="count">月售{food.sellCount}}</span>
-																		<span className="count">好评{food.rating}</span>
-																	</div>
-																	<div className="price">
-																		<span className="now">￥{food.price}</span>
-																		<span className="old">￥{food.oldPrice}</span>
-																	</div>
-
-																</div>
-															</li>
-														</div>
-													)
-												)
-											}
-										</ul>
-									</li>
-									))
-								}
-							</ul>
-						</div>
-			</div>
+            <div className="good">
+            	<div className="menu-wrapper" ref="menuWrapper">
+            		<ul>
+                       {res}
+            		</ul>
+            	</div>
+    			<div className="foods-wrapper" ref="foodWrapper">
+    				<ul>
+    					{foodres}
+    				</ul>
+    			</div>
+            </div>
 		)
 	}
 }
+
+
+
+

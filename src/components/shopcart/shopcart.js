@@ -30,6 +30,13 @@ export default class ShopCart extends Component {
 		fold: true
 	}
 
+	constructor(props) {
+		super(props);
+		this.balls = [{show: false}, {show: false}, {show: false}, {show: false}, {show: false}];
+		dropBalls: [],
+        fold: true
+	}
+
 	totalPrice() {
 		let total = 0;
 		this.selectFoods.map((food) => {

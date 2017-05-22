@@ -4,11 +4,13 @@
 
 import * as types from '../constants/ActionTypes';
 
-export default function sellerdata(entities, result) {
+export default function goodsdata(result) {
+	console.log(result)
     return {
-        type: types.SELLER_DATA,
-        entities,
+        type: types.GOODS_DATA,
+        
         result
+
     }
 }
 

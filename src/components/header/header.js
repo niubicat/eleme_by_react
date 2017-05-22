@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import * as styles from './header.less';
 
+import { downDone } from '../../control/Seller';
+
 // import Star from '../Star/Star';
 
 // {this.props.seller.seller.supports.map((item, index)=><span key={index}>{item.description}</span>)}
@@ -15,27 +17,38 @@ export default class Header extends Component {
 		seller: PropTypes.object.isRequired
 	}
 
+	static defaultProps = {
+		haha:1221,
+		seller: {
+			supports:[{
+				description:122
+			}]
+		}
+	}
+
 	constructor(props) {
 		super(props);
-
+		console.log(this.props.haha)
 		this.state = {
 			display: 'none',
 			detailShow: false,
+			down: '',
 			size: 48
 		}
 
-		this.fetchItems = this.fetchItems.bind(this);
+		this.fetchItems = this.fetchItems.bind(this);	
     }
 
-    componentWillMount() {
-        this.fetchItems(true);
-    }
-     
+    
 
     fetchItems(isRefresh) {
         if (isRefresh) {
             this.props.getSellerData();
         }
+    }
+
+    componentDidMount() {
+       this.fetchItems(true);
     }
 
 	showDetail() {
@@ -59,37 +72,51 @@ export default class Header extends Component {
 			'fade-enter-active': this.state.detailShow,
             'fade-leave-active': !this.state.detailShow
 		});
-        console.log(this.props.seller.seller.supports);
+        
+        let supportslist = '';
+        if (true) {
+
+			classMap.map((item, index) => {
+					return (
+					<li key={index} className="support-item">
+					<span className={`icon ${item}`}></span>
+					<span className="text">{this.props.seller}</span>
+					</li>
+					)	
+				}
+			)
+		}
+
+
 		return (
 			<div>
-		
-
+			{console.log(this.props.seller.supports)}
 			<div className="header">
 				<div className="content-wrapper">
 					<div className="avatar">
-						<img style={{width: 64, height: 64}} src={this.props.seller.seller.avatar}/>
+						<img style={{width: 64, height: 64}} src={this.props.seller.avatar}/>
 					</div>
 					<div className="content">
 						<div className="title">
 							<span className="brand"></span>
-							<span className="name">{this.props.seller.seller.name}</span>
+							<span className="name">{this.props.seller.name}</span>
 						</div>
 						<div className="description">
-							{this.props.seller.seller.description}/{this.props.seller.seller.deliveryTime}分钟送达
+							{this.props.seller.description}/{this.props.seller.deliveryTime}分钟送达
 						</div>
 						<div className="support">
 							<span className={`icon ${addClass}`}></span>
-							<span className="text">{this.props.seller.seller.supports[0].description}</span>
+							
 						</div>
 					</div>
 					<div className="supports-count" onClick={::this.showDetail}>
-						<span className="count">{this.props.seller.seller.supports.length}个</span>
+						<span className="count">个</span>
 						<i className={`icon iconfont icon-zuoyoujiantou`}></i>
 					</div>
 				</div>
 				<div className="bulletin-wrapper" onClick={::this.showDetail}>
 					<span className="bulletin-title"></span>
-					<span className="bulletin-text">{this.props.seller.seller.bulletin}</span>
+					<span className="bulletin-text">{this.props.seller.bulletin}</span>
 					<i className={`icon iconfont icon-zuoyoujiantou`}></i>
 				</div>
 				<div className="background">
@@ -98,7 +125,7 @@ export default class Header extends Component {
 				<div className={`detail ${fadeClass}`} onClick={::this.hideDetail} style={{display: this.state.display}}>
 					<div className={`detail-wrapper clearFix`}>
 						<div className="detail-main">
-							<h1 className="name">{this.props.seller.seller.name}</h1>
+							<h1 className="name">{this.props.seller.name}</h1>
 
 							<div className="title">
 								<div className="line"></div>
@@ -106,20 +133,9 @@ export default class Header extends Component {
 								<div className="line"></div>
 							</div>
 							<ul className="supports">
-								<li className="support-item">
-									{
-                                        classMap.map((item, index) => {
-                                        	return (
-                                        		<div>
-													<span key={index} className={`icon ${item}`}></span>
-													<span className="text">
-														{this.props.seller.seller.supports[index].description}
-													</span>
-												</div>
-												)
-										})
-									}
-								</li>
+								
+									
+								
 							</ul>
 							<div className="title">
 								<div className="line"></div>
@@ -127,7 +143,7 @@ export default class Header extends Component {
 								<div className="line"></div>
 							</div>
 							<div className="bulletin">
-								<p className="content">{this.props.seller.seller.bulletin}</p>
+								<p className="content">{this.props.seller.bulletin}</p>
 							</div>
 						</div>
 					</div>

@@ -32,7 +32,7 @@ module.exports = {
                 loader: ['babel-loader']// 'babel-loader' is also a legal name to reference
             },
             {
-                test: /\.(gif|jpg|png|woff|svg|eot|ttf)$/,
+                test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'url-loader?limit=8192'
             }

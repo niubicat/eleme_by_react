@@ -6,12 +6,12 @@ import * as types from '../constants/ActionTypes';
 
 const initialSellerState = {}
 
-export default function seller(state = initialSellerState, action) {
+export default function ratings(state = initialSellerState, action) {
     switch (action.type) {
-        case types.SELLER_DATA:
+        case types.RATINGS_DATA:
             return Object.assign({}, state, {
-                ...action.entities,
-                ...action.result
+            	...action.entities,
+            	...action.result
             });
 
         default:

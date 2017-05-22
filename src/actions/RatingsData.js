@@ -4,7 +4,7 @@
 
 import * as types from '../constants/ActionTypes';
 
-export default function sellerdata(entities, result) {
+export default function ratingsdata(entities, result) {
     return {
         type: types.SELLER_DATA,
         entities,

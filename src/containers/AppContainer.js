@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
 import { getSellerData } from '../control/Seller';
+import { getGoodsData } from '../control/Goods';
+import { getRatingsData } from '../control/Ratings';
 
 import Header from '../components/Header/Header';
 import Goods from '../components/Goods/Goods';
@@ -16,11 +18,8 @@ import Goods from '../components/Goods/Goods';
 class AppContainer extends Component {
 
     constructor(props) {
-        super(props);
-        
+        super(props);     
     }
-
-   
 
     render() {
         return (
@@ -50,18 +49,23 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    const { seller } = state;
+    const { seller, ratings } = state;
+    const { goods } = state.goods;
 
+    
 
     return {
-        seller
-
+        seller,
+        goods,
+        ratings
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        getSellerData: getSellerData
+        getSellerData: getSellerData,
+        getGoodsData: getGoodsData,
+        getRatingsData: getRatingsData
     }, dispatch)
 }
 

@@ -4,17 +4,20 @@
 
 import * as types from '../constants/ActionTypes';
 
-const initialSellerState = {}
+const initialSellerState = {
+	
+}
 
-export default function seller(state = initialSellerState, action) {
+export default function goods(state = initialSellerState, action) {
     switch (action.type) {
-        case types.SELLER_DATA:
+        case types.GOODS_DATA:
             return Object.assign({}, state, {
-                ...action.entities,
-                ...action.result
+                goods: action.result
             });
 
         default:
             return state;
+            console.log(state)
     }
+
 }
