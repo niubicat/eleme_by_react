@@ -5,7 +5,7 @@
 import * as types from '../constants/ActionTypes';
 
 export default function goodsdata(result) {
-	console.log(result)
+	
     return {
         type: types.GOODS_DATA,
         

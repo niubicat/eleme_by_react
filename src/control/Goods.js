@@ -18,7 +18,7 @@ export function getGoodsData() {
             .then(response => response.json())
             .then(json => {
             	const goods = json.goods;
-                console.log(goods)
+                
             	// const goodsNormalized = normalize(goods, goodsList)
              //    console.log(goodsNormalized)
             	// dispatch(goodsdata(goodsNormalized.entities, goodsNormalized.result))

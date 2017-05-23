@@ -20,7 +20,7 @@ export function getSellerData() {
             	const seller = json.seller;
                
             	const sellerNormalized = normalize(seller, {seller: sellerList});
-                console.log(sellerNormalized)
+               
             	dispatch(sellerdata(sellerNormalized.entities, sellerNormalized.result))
             	}
             )

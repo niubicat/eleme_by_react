@@ -1,69 +1,54 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import * as styles from './cartcontrol.less';
-
 
 export default class CartControl extends Component {
 	static PropTypes = {
-		food: PropTypes.object.isRequired,
-        increment: PropTypes.func,
-		count: PropTypes.number,
-		model: PropTypes.bool
+		
 	}
 
 	static defaultProps = {
-        model: null
+        
 	}
 
 	constructor(props) {
 		super(props);
-		
-		this.state = {
-			count: 0
+		this.state= {
+			count: 0,
+			totalcount:0
 		}
-
-		this.addChart = this.addChart.bind(this);
-		this.decreaseChart = this.decreaseChart.bind(this);
-		// this.showdata = this.showdata.bind(this);
+		
+		
+		
 	}
 
-	// showdata(e) {
-     //    console.log(this.props.food);
-     //    this.props.increment(e);
-	// }
-	
-
-	addChart() {
-			this.setState({
-				count: this.state.count+1,
-				
-			});
+	count() {
+		let el = this.refs.CartControl.addChart();
+		this.setState({
+			count: this.count.count+1,
+			totalcount
+		})
 	}
 
-	decreaseChart() {
-				this.setState({
-					count: this.state.count-1
-				});
+	totalcount(e) {
+
 	}
+
 
 	render() {
-
+		
 		let modelchose = '';
 		if (this.props.model == 'one') {
-			
+			console.log('Test1 render');
 			modelchose = (
 					<div className="cartControl">
-						<div className="cart-decrease" onClick={() => {
-							if(this.state.count>0){this.decreaseChart();this.props.deleteNum();}
-						}}>
+						<div className="cart-decrease" onClick={this.decreaseChart}>
 							<span className={`inner iconfont icon-jian`}></span>
 						</div>
 						<span className="cart-count">
 							{this.state.count}
 						</span>
-						<span className={`iconfont icon-jia cart-add`} onClick={
-							() => {this.addChart();this.props.totalNum();}}></span>
+						<span className={`iconfont icon-jia cart-add`} onClick={this.addChart}></span>
 					</div>
 				)
 		}
@@ -77,10 +62,10 @@ export default class CartControl extends Component {
 					</div>
 				)
 		}else if (this.props.model == 'three'){
-			
+			console.log('Test2 render');
 			modelchose = (
 					<span className="cart-count">
-						
+						{this.state.count}
 					</span>
 				)
 		}

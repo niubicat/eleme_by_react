@@ -18,7 +18,7 @@ export default class Header extends Component {
 	}
 
 	static defaultProps = {
-		haha:1221,
+		
 		seller: {
 			supports:[{
 				description:122
@@ -28,7 +28,7 @@ export default class Header extends Component {
 
 	constructor(props) {
 		super(props);
-		console.log(this.props.haha)
+		
 		this.state = {
 			display: 'none',
 			detailShow: false,
@@ -90,7 +90,7 @@ export default class Header extends Component {
 
 		return (
 			<div>
-			{console.log(this.props.seller.supports)}
+			
 			<div className="header">
 				<div className="content-wrapper">
 					<div className="avatar">

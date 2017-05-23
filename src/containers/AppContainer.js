@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { getSellerData } from '../control/Seller';
 import { getGoodsData } from '../control/Goods';
 import { getRatingsData } from '../control/Ratings';
+import { FoodsCount } from '../control/FoodsCount';
+
 
 import Header from '../components/Header/Header';
 import Goods from '../components/Goods/Goods';
@@ -49,7 +51,7 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    const { seller, ratings } = state;
+    const { seller, ratings, count } = state;
     const { goods } = state.goods;
 
     
@@ -57,7 +59,8 @@ function mapStateToProps(state) {
     return {
         seller,
         goods,
-        ratings
+        ratings,
+        count
     };
 }
 
@@ -65,7 +68,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getSellerData: getSellerData,
         getGoodsData: getGoodsData,
-        getRatingsData: getRatingsData
+        getRatingsData: getRatingsData,
+        FoodsCount: FoodsCount,
     }, dispatch)
 }
 
