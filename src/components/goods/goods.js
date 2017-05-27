@@ -45,15 +45,20 @@ export default class Goods extends Component {
             pullUpStatus: 0,
             down: '',
             totalCo: 0,
-            toto: 0
+            toto: 0,
+            allfoods: [],
+            goodsall: [],
+            hahafoods: [],
+            lolofoods: []
         }
         
         this.listHeight = [];
 
         this.model = 'one';
 
-        
-        this.el = [];
+    
+
+        this.choicekey = null;
 
         this.calculateHeight = this.calculateHeight.bind(this);
         this.currentIndex = this.currentIndex.bind(this);
@@ -63,6 +68,11 @@ export default class Goods extends Component {
         this.selectFood = this.selectFood.bind(this);
         this.totalNum = this.totalNum.bind(this);
         this.deleteNum = this.deleteNum.bind(this);
+        
+        this.choicespan = this.choicespan.bind(this);
+
+
+        this.choicefoods =this.choicefoods.bind(this);
     }
 
     componentWillMount() {
@@ -102,7 +112,7 @@ export default class Goods extends Component {
             this.calculateHeight();  // 计算出foolmenu scroll listHeight
             this.scrolly = Math.abs(Math.round(this.foodiScrollInstance.y)); // 取最近的整数，再取绝对值
             this.currIndex = this.currentIndex();
-            console.log(this.currIndex)
+            
         });
     }
 
@@ -119,6 +129,7 @@ export default class Goods extends Component {
         let el = this.foodList[index];
         
         this.foodiScrollInstance.scrollToElement(el, 300);
+        
     }
 
     
@@ -129,7 +140,7 @@ export default class Goods extends Component {
         let height = 0;
         
         this.listHeight.push(height);
-        console.log(this.foodList)
+        
         for (var k = 0; k < this.foodList.length; k++) {
             height += this.foodList[k].clientHeight;
             this.listHeight.push(height);
@@ -183,31 +194,84 @@ export default class Goods extends Component {
 	    this.refs.shopCart.drop(e.currentTarget);
     }
 
+    
     totalNum() {
+        // this.choicefood = event.currentTarget;
+        // this.el.push(this.choicefood);
+        this.setState(
+            {totalCo: this.state.totalCo + 1}
+        );
+    }
 
+    deleteNum(val) {
+        // this.choicefood = event.currentTarget;
+        // if (this.el.length !== 0) {
+        // this.el.splice(this.el.lastIndexOf(this.choicefood), 1);
+        if(this.state.totalCo>0){
+            this.setState(
+                {totalCo: this.state.totalCo-1}
+            );
+        }
+    }
+
+    choicespan = (e) => {
+        // e.persist(); // SyntheticEvent 持久化,加上 e.persist(); 后能够输出 e.target
+        e.preventDefault();
+        
+
+        if (this.state.allfoods.length == 0) {
+           
+            for(let i=0; i<this.props.goods.length; i++){
+        
+                this.state.goodsall.push(document.getElementsByClassName("food-list")[i]);
                 
-                this.el.push(this.refs.fuck);
-                this.setState({
-                    totalCo: this.el.length
-                });
+                for (var j = 0; j < this.props.goods[i].foods.length; j++) {
+                    
+                this.state.allfoods.push(this.state.goodsall[i].getElementsByClassName("icon-jia")[j]);
+                
+                }      
+            }
+        }else {
+            
+            this.setState({
+                allfoods: [],
+                goodsall: []
+            });
+            
+            for(let i=0; i<this.props.goods.length; i++){
+        
+                this.state.goodsall.push(document.getElementsByClassName("food-list")[i]);
+                
+                for (var j = 0; j < this.props.goods[i].foods.length; j++) {
+                    
+                this.state.allfoods.push(this.state.goodsall[i].getElementsByClassName("icon-jia")[j]);
+                
+                }      
+            }
+
+        }
+       
+        
     }
 
-    deleteNum() {
-       if (this.el.length !== 0) {
-        this.el.splice(this.el.lastIndexOf(this.refs.fuck), 1);
-        this.setState({
-            totalCo: this.el.length
-        });
-       }
-       console.log(this.el)
+    choicefoods(index) {
+        for(let i=0; i<this.props.goods.length; i++){    
+            
+            for (var j = 0; j < this.props.goods[i].foods.length; j++) {
+                
+            this.state.hahafoods.push(this.props.goods[i].foods[j])
+            
+            }      
+        }
+        
+        this.state.lolofoods.push(this.state.hahafoods[index]);
+        
+        console.log(this.state.lolofoods)
     }
-
-
-
 
     render(){
 
-       
+
         let res = '';
         if (this.props.goods !== 'underfined') {
             res = this.props.goods.map((item, index) => {
@@ -235,13 +299,13 @@ export default class Goods extends Component {
                             item.foods.map(
                                 (food, i) => {
                                     return (
-                                        <li key={i} className="food-item"
+                                        <li key={i} className="food-item" data-key={i}
                                             >
                                             <div className="icon">
                                                 <img alt="" src={require("../../image/foods/icon2.jpg")}style={{width: "57"}}/>
                                             </div>
                                             <div className="content">
-                                                <h2 className="name" ref="fuck">{food.name}</h2>
+                                                <h2 className="name">{food.name}</h2>
                                                 <p className="desc">{food.description}</p>
                                                 <div className="extra">
                                                     <span className="count">月售{food.sellCount}}</span>
@@ -252,8 +316,16 @@ export default class Goods extends Component {
                                                     <span className="old">￥{food.oldPrice}</span>
                                                 </div>
                                                 <div className="cartControl-wrapper">
-                                                    <CartControl model={this.model} totalNum={this.totalNum}  
-                                                        deleteNum={this.deleteNum} food={food} increment={this.incrementTotal} 
+                                                    <CartControl 
+                                                        choicefoods={this.choicefoods}
+                                                        model={this.model} 
+                                                        totalNum={this.totalNum}
+                                                        deleteNum={this.deleteNum} 
+                                                        goods={this.props.goods} 
+                                                        increment={this.incrementTotal} 
+                                                        choicespan={this.choicespan}
+                                                        allfoods={this.state.allfoods}
+                                                        choicefoods={this.choicefoods}
                                                         {...this.props}/>
                                                 </div>
                                             </div>
@@ -282,8 +354,14 @@ export default class Goods extends Component {
     				</ul>
     			</div>
                 <div>
-                    <ShopCart selectFoods={this.selectFoods()} deliveryprice={this.props.seller.deliveryPrice}
-                    minprice={this.props.seller.minPrice} ref="shopCart" totalCo={this.state.totalCo}/>
+                    <ShopCart 
+                        selectFoods={this.selectFoods()} 
+                        deliveryprice={this.props.seller.deliveryPrice}
+                        minprice={this.props.seller.minPrice} 
+                        ref="shopCart" 
+                        totalCo={this.state.totalCo}
+                        choicekey={this.choicekey}
+                        goods={this.props.goods}/>
 
                 </div>
             </div>

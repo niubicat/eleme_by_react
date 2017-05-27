@@ -126,6 +126,11 @@ export default class ShopCart extends Component {
 	}
 
 	
+	choicefoods() {
+		this.props.goods.map((item) => {
+			item.map()
+		})
+	}
 
 
 	// drop(el) {

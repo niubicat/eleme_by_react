@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import ReactDOM from 'react-dom';
 
 import * as styles from './cartcontrol.less';
 
@@ -23,9 +24,15 @@ export default class CartControl extends Component {
 			count: 0
 		}
 
+		
+        this.choiceOne = null;
+        this.choiceIndex = null;
+
 		this.addChart = this.addChart.bind(this);
 		this.decreaseChart = this.decreaseChart.bind(this);
+		
 		// this.showdata = this.showdata.bind(this);
+		
 	}
 
 	// showdata(e) {
@@ -34,18 +41,34 @@ export default class CartControl extends Component {
 	// }
 	
 
-	addChart() {
-			this.setState({
-				count: this.state.count+1,
-				
-			});
+	addChart(event) {
+			event.preventDefault();
+
+			this.setState({count: this.state.count+1}, this.props.totalNum());
+
+			this.choiceOne = this.refs.jiajia;
+			// this.choiceOne = document.getElementsByClassName("cart-add");
+			// shsh.addEventListener("click", this.choicespan)
+			
+			this.choiceOne.setAttribute("data-aa", "gaga");
+			
+			this.props.choicespan(event);
+
+			this.choiceIndex = this.props.allfoods.indexOf(this.choiceOne);
+			
+			this.props.choicefoods(this.choiceIndex);
 	}
 
 	decreaseChart() {
-				this.setState({
-					count: this.state.count-1
-				});
+		if (this.state.count > 0) {
+			this.setState({count: this.state.count-1}, this.props.deleteNum());
+		}
+				
 	}
+
+	
+
+
 
 	render() {
 
@@ -55,15 +78,15 @@ export default class CartControl extends Component {
 			modelchose = (
 					<div className="cartControl">
 						<div className="cart-decrease" onClick={() => {
-							if(this.state.count>0){this.decreaseChart();this.props.deleteNum();}
+							if(this.state.count>0){this.decreaseChart()}
 						}}>
 							<span className={`inner iconfont icon-jian`}></span>
 						</div>
 						<span className="cart-count">
 							{this.state.count}
 						</span>
-						<span className={`iconfont icon-jia cart-add`} onClick={
-							() => {this.addChart();this.props.totalNum();}}></span>
+						<span className={`iconfont icon-jia cart-add`} ref="jiajia" onClick={
+							() => {this.addChart(event);}}></span>
 					</div>
 				)
 		}
@@ -73,7 +96,9 @@ export default class CartControl extends Component {
 						<div className="cart-decrease" onClick={this.decreaseChart}>
 							<span className={`inner iconfont icon-jian`}></span>
 						</div>
-						<span className={`iconfont icon-jia cart-add`} onClick={this.addChart}></span>
+						<span className={`iconfont icon-jia cart-add`} onClick={
+							this.choicespan
+						}></span>
 					</div>
 				)
 		}else if (this.props.model == 'three'){
