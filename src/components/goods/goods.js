@@ -49,7 +49,8 @@ export default class Goods extends Component {
             allfoods: [],
             goodsall: [],
             hahafoods: [],
-            lolofoods: []
+            lolofoods: [],
+
         }
         
         this.listHeight = [];
@@ -74,6 +75,8 @@ export default class Goods extends Component {
 
         this.choicefoods =this.choicefoods.bind(this);
     }
+
+  
 
     componentWillMount() {
         this.fetchItems(true);
@@ -259,21 +262,19 @@ export default class Goods extends Component {
             
             for (var j = 0; j < this.props.goods[i].foods.length; j++) {
                 
-            this.state.hahafoods.push(this.props.goods[i].foods[j])
-            
-            }      
+                this.state.hahafoods.push(this.props.goods[i].foods[j]);
+            }    
         }
         
         this.state.lolofoods.push(this.state.hahafoods[index]);
-        
+         
         console.log(this.state.lolofoods)
     }
 
     render(){
 
-
         let res = '';
-        if (this.props.goods !== 'underfined') {
+        if (typeof(this.props.goods) !== 'undefined') {
             res = this.props.goods.map((item, index) => {
                     return (
                         <li key={index} 
@@ -290,7 +291,7 @@ export default class Goods extends Component {
 
         
         let foodres = '';
-        if (this.props.goods !== 'underfined') {
+        if (typeof(this.props.goods) !== 'undefined') {
             foodres = this.props.goods.map((item, index) => (
                 <li key={index} className={`food-list food-list-hook`} >
                     <h1 className="title">{item.name}</h1>
@@ -302,7 +303,7 @@ export default class Goods extends Component {
                                         <li key={i} className="food-item" data-key={i}
                                             >
                                             <div className="icon">
-                                                <img alt="" src={require("../../image/foods/icon2.jpg")}style={{width: "57"}}/>
+                                                <img alt="" src={require("../../image/foods/icon2.jpg")}style={{"width": "57px"}}/>
                                             </div>
                                             <div className="content">
                                                 <h2 className="name">{food.name}</h2>
@@ -361,8 +362,21 @@ export default class Goods extends Component {
                         ref="shopCart" 
                         totalCo={this.state.totalCo}
                         choicekey={this.choicekey}
-                        goods={this.props.goods}/>
+                        goods={this.props.goods}
+                        lolofoods={this.state.lolofoods}
 
+
+                        choicefoods={this.choicefoods}
+                        
+                        totalNum={this.totalNum}
+                        deleteNum={this.deleteNum} 
+                        goods={this.props.goods} 
+                        increment={this.incrementTotal} 
+                        choicespan={this.choicespan}
+                        allfoods={this.state.allfoods}
+                        choicefoods={this.choicefoods}
+                        {...this.props}/>
+                        
                 </div>
             </div>
 		)

@@ -14,7 +14,8 @@ export default class ShopCart extends Component {
 		minPrice: PropTypes.number.isRequired,
 		balls: PropTypes.array.isRequired,
 		drop: PropTypes.array.isRequired,
-		fold: PropTypes.bool.isRequired
+		fold: PropTypes.bool.isRequired,
+		
 	}
 
 	static defaultProps = {
@@ -29,14 +30,17 @@ export default class ShopCart extends Component {
 		super(props);
 		this.state = {
 			
+			result: [], // 去重后的foods
+			count: [] // 每样food的计数
 		}
 
 		this.fold =  true;
-		this.model = 'three';
+		this.model = 'one';
 
 		this.totalPrice = this.totalPrice.bind(this);
 		this.totalCount = this.totalCount.bind(this);
 		this.listShow = this.listShow.bind(this);
+		this.whatfoods = this.whatfoods.bind(this);
 
 		this.balls = [{show: false}, {show: false}, {show: false}, {show: false}, {show: false}];
 		this.dropBalls = [];
@@ -126,11 +130,49 @@ export default class ShopCart extends Component {
 	}
 
 	
-	choicefoods() {
-		this.props.goods.map((item) => {
-			item.map()
-		})
+	whatfoods(arr) {
+		
+		this.state.result = [];
+		this.state.count = [];
+		
+		for(var i=0; i<arr.length; i++){
+
+			if(this.state.result.indexOf(arr[i]) ==-1){
+				
+				this.state.result.push(arr[i]);
+				this.state.count.push(1);
+				
+			}else if(this.state.result.indexOf(arr[i]) !== -1) {
+				// console.log(this.state.countresult.indexOf(arr[i]))
+				this.state.count[this.state.result.indexOf(arr[i])]++
+			}
+		}
+
+		console.log(this.state.result)
+		console.log(this.state.count)
+
 	}
+
+
+
+	// var aa=[1,3,5,4,3,3,1,4]
+	// function arr(arr) {
+	//   var result=[], count=[];
+	//   for(var i=0; i<arr.length; i++){
+	//     if(result.indexOf(arr[i]) ==-1){
+	//       result.push(arr[i]) 
+	//       count.push(1);
+	//     }else if(result.indexOf(arr[i]) !== -1) {
+	//     	console.log(result.indexOf(arr[i]))
+	//     	count[result.indexOf(arr[i])]++;
+	//     }
+	//   }
+	  
+	//   console.log(result)
+	//   console.log(count)
+
+	// }      
+	// arr(aa)
 
 
 	// drop(el) {
@@ -189,7 +231,49 @@ export default class ShopCart extends Component {
 //                     "list-mask": true, "fade-leave-active": this.fold,
 //                     "fade-enter-active": !this.fold})} onClick={this.listShow}></div>
 // 				</div>
+// 				
+// 	
+
+	componentWillReceiveProps(nextProps, nextState) {
+		
+		this.whatfoods(nextProps.lolofoods);
+		console.log(this.state.result)
+	}
+
+	
+
+										
 	render() {
+		let selectfoodshaha = '';
+		
+		if (this.state.result.length !== 0) {
+			selectfoodshaha = this.state.result.map((food, index) => {
+				return (
+					<li key={index} className="shopcart-food">
+						<span className="name">{food.name}</span>
+						<div className="price"><span>￥{food.price * this.state.count[index]}</span></div>
+						<div className="cartControl-wrapper">
+							<CartControl 
+							model={this.model}
+
+							choicefoods={this.props.choicefoods}
+                            totalNum={this.props.totalNum}
+                            deleteNum={this.props.deleteNum} 
+                            goods={this.props.goods} 
+                            increment={this.props.incrementTotal} 
+                            choicespan={this.props.choicespan}
+                            allfoods={this.props.allfoods}
+                            choicefoods={this.props.choicefoods}
+                            {...this.props}/>
+						</div>
+					</li>
+				)
+
+			})	
+		}else {
+			selectfoodshaha = (<div></div>)
+		}
+
 		return (
 			<div>
 				<div className="shopCart">
@@ -243,21 +327,8 @@ export default class ShopCart extends Component {
 							</div>
 							<div className="list-content" ref="listContent">
 								<ul>
-									{
-										this.props.selectFoods.map((food) => {
-											return (
-												<li className="shopcart-food">
-													<span className="name">{food.name}</span>
-													<div className="price"><span>￥{food.price * food.count}</span></div>
-													<div className="cartControl-wrapper">
-														
-													</div>
-												</li>
-											)
-
-										})
-									}
-								</ul>
+									{selectfoodshaha}
+								</ul>	
 							</div>
 						</div>
 					</div>

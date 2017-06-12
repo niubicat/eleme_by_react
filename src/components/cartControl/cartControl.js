@@ -30,7 +30,7 @@ export default class CartControl extends Component {
 
 		this.addChart = this.addChart.bind(this);
 		this.decreaseChart = this.decreaseChart.bind(this);
-		
+		this.choicegofos = this.choicegofos.bind(this);
 		// this.showdata = this.showdata.bind(this);
 		
 	}
@@ -46,6 +46,18 @@ export default class CartControl extends Component {
 
 			this.setState({count: this.state.count+1}, this.props.totalNum());
 
+			
+	}
+
+	decreaseChart() {
+		if (this.state.count > 0) {
+			this.setState({count: this.state.count-1}, this.props.deleteNum());
+		}
+				
+	}
+
+	choicegofos(event) {
+			event.preventDefault();
 			this.choiceOne = this.refs.jiajia;
 			// this.choiceOne = document.getElementsByClassName("cart-add");
 			// shsh.addEventListener("click", this.choicespan)
@@ -58,17 +70,6 @@ export default class CartControl extends Component {
 			
 			this.props.choicefoods(this.choiceIndex);
 	}
-
-	decreaseChart() {
-		if (this.state.count > 0) {
-			this.setState({count: this.state.count-1}, this.props.deleteNum());
-		}
-				
-	}
-
-	
-
-
 
 	render() {
 
@@ -86,7 +87,7 @@ export default class CartControl extends Component {
 							{this.state.count}
 						</span>
 						<span className={`iconfont icon-jia cart-add`} ref="jiajia" onClick={
-							() => {this.addChart(event);}}></span>
+							() => {this.addChart(event);this.choicegofos(event)}}></span>
 					</div>
 				)
 		}
