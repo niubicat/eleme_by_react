@@ -12,7 +12,7 @@
 
 ### 3、详情页部分功能
 
-![Image text](https://github.com/niubicat/eleme_by_react/resource/外卖01_商品页.jpg)
+![Image text](https://github.com/niubicat/eleme_by_react/blob/master/resource/%E5%A4%96%E5%8D%9601_%E5%95%86%E5%93%81%E9%A1%B5.jpg)
 
 ### 4、实现的功能（部分功能还进行中.....）
 
